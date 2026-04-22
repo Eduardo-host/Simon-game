@@ -1,5 +1,5 @@
-//Global variables
 
+//Global variables
 let buttonColour = ["red", "blue", "green", "yellow"]
 let gamePattern = [];
 let userClickedPattern = [];
@@ -8,6 +8,11 @@ let level = 0;
 let bestScore = localStorage.getItem("bestScore") || 0;
 bestScore = Number(bestScore);
 
+// Show saved best score when the page loads
+$("#best-score").text("Best Score: " + bestScore);
+
+
+// Generates the next step in the sequence
 function nextSequence() {
     let randomNumber = Math.floor(Math.random() * 4);
     let randomChosenColour = buttonColour[randomNumber];
@@ -16,9 +21,16 @@ function nextSequence() {
     playSound(randomChosenColour);
     level++;
     $("#level-title").text("Level " + level);
+    // Update best score if current level is higher
+    if (level > bestScore) {
+        bestScore = level;
+        localStorage.setItem("bestScore", bestScore);
+        $("#best-score").text("Best Score: " + bestScore);
+    }
 
 }
 
+// Handles button clicks from the player
 $(".btn").click(function () {
     let userChosenColour = $(this).attr("id")
     userClickedPattern.push(userChosenColour)
@@ -28,12 +40,14 @@ $(".btn").click(function () {
 
 });
 
+// Plays the sound for a given color name
 function playSound(name) {
     let audio = new Audio("/sounds/" + name + ".mp3")
     audio.play()
 
 }
 
+// Adds a short pressed effect to a button
 function animatePress(currentColour) {
     $("." + currentColour).addClass("pressed");
     setTimeout(() => {
@@ -41,6 +55,7 @@ function animatePress(currentColour) {
     }, 100)
 }
 
+// Starts the game when any key is pressed
 $(document).on("keydown", function () {
     if (!started) {
         $("#level-title").text("level" + level);
@@ -49,6 +64,7 @@ $(document).on("keydown", function () {
     }
 })
 
+// Checks whether the player's answer is correct
 function checkAnswer(currentLevel) {
     let userAnwser = userClickedPattern[currentLevel];
     let gameAnwser = gamePattern[currentLevel];
@@ -76,15 +92,15 @@ function checkAnswer(currentLevel) {
 
         }, 200);
         $("h1").text("Game Over, Press Any Key to Restart");
-        starOver()
+        startOver()
 
         console.log("wrong")
     }
 }
 
-
-function starOver() {
-    level = 0;                      // yo se que aqui limpiamos todo variables para cuando el usuario pierda, se reinicie todo 
+// Resets all game variables after losing
+function startOver() {
+    level = 0;
     gamePattern = [];
     started = false;
     userClickedPattern = [];
