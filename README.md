@@ -34,10 +34,29 @@ It also includes a persistent **Best Score** feature using `localStorage`.
 
 ## Project Structure
 
-```bash
+
+
 Simon-game/
 ├── sounds/
 ├── game.js
 ├── index.html
 ├── styles.css
 └── README.md
+
+
+## Live Demo
+
+[Play Simon Game]  (https://eduardo-host.github.io/Simon-game/)
+
+## What I Practiced
+
+- DOM manipulation
+- Event handling
+- Arrays and sequences
+- Game logic
+- localStorage
+- Git branching and merging
+
+## Author
+
+Eduardo Villegas
