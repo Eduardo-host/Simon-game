@@ -42,7 +42,7 @@ $(".btn").click(function () {
 
 // Plays the sound for a given color name
 function playSound(name) {
-    let audio = new Audio("/sounds/" + name + ".mp3")
+    let audio = new Audio("./sounds/" + name + ".mp3")
     audio.play()
 
 }
@@ -82,7 +82,7 @@ function checkAnswer(currentLevel) {
         }
 
     } else {
-        let wrong = new Audio("/sounds/wrong.mp3")
+        let wrong = new Audio("./sounds/wrong.mp3")
         wrong.play();
 
         $("body").addClass("game-over");
